@@ -1,15 +1,13 @@
 # Aufgaben
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/aufgaben`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+> Provide useful Rake tasks
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this line to your `Gemfile`:
 
 ```ruby
-gem 'aufgaben'
+gem "aufgaben"
 ```
 
 And then execute:
@@ -22,7 +20,21 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Put the following code to your `Rakefile`:
+
+```ruby
+require "aufgaben/release"
+Aufgaben::Release.new
+```
+
+The default settings:
+
+```ruby
+Aufgaben::Release.new do |t|
+  t.default_branch = "master"
+  t.dry_run = false
+end
+```
 
 ## Development
 
@@ -32,4 +44,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/aufgaben.
+Bug reports and pull requests are welcome on GitHub at <https://github.com/ybiquitous/aufgaben>.
