@@ -39,10 +39,19 @@ class ReleaseTest < Minitest::Test
       sh! "git remote add origin '#{git_remote_path}'"
       sh! "git add ."
       sh! "git commit -m 'Init'"
-      sh! "git tag 1.0.0"
+      sh! "git tag -a 1.0.0 -m 'Version 1.0.0'"
       sh! "git push --follow-tags origin master"
 
       sh! "rake release'[1.1.0]'"
+
+      sh! "git push --follow-tags origin master"
+
+      stdout, = sh! "git show"
+      assert_match "Version 1.1.0", stdout
+
+      stdout, = sh! "git ls-remote --tags"
+      assert_match "refs/tags/1.0.0", stdout
+      assert_match "refs/tags/1.1.0", stdout
 
       assert_equal <<~CONTENT, (workdir / "CHANGELOG.md").read
         # Changelog
@@ -67,5 +76,6 @@ class ReleaseTest < Minitest::Test
     puts stdout
     puts stderr
     status.success? or raise "Error: #{cmd}"
+    [stdout, stderr, status]
   end
 end
