@@ -33,6 +33,7 @@ The default settings:
 Aufgaben::Release.new do |t|
   t.default_branch = "master"
   t.dry_run = false
+  t.changelog = "CHANGELOG.md"
 end
 ```
 
