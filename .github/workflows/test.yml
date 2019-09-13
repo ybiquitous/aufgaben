@@ -1,0 +1,29 @@
+name: Ruby Gem
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.6.x
+    - name: Bundle install
+      run: |
+        gem install bundler --no-document
+        bundle install --jobs=4 --retry=3 --path=vendor/bundle
+    - name: Setup Git
+      run: |
+        git config --global user.email "you@example.com"
+        git config --global user.name "Your Name"
+    - name: Run tests
+      run: rake test
