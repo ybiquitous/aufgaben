@@ -58,6 +58,8 @@ module Aufgaben
     end
 
     def update_changelog(current_version, new_version)
+      return unless File.exist? changelog
+
       compare_url = nil
       new_lines = File.readlines(changelog, chomp: true).map do |line|
         case
