@@ -1,0 +1,22 @@
+name: Ruby Gem
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.6.x
+    - run: gem install bundler --no-document
+    - run: bundle install --jobs=4 --retry=3 --path=vendor/bundle
+    - run: rake test
