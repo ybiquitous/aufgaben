@@ -138,6 +138,7 @@ module Aufgaben
     end
 
     def msg(text)
+      puts
       puts "> #{text}"
       puts
     end
