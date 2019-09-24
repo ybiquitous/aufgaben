@@ -29,7 +29,7 @@ module Aufgaben
     def define
       desc "Perform a release work"
       task name, [:version] do |_task, args|
-        self.new_version = args[:version]
+        self.new_version = args[:version] if args[:version]
 
         abort "Required a new version!" unless new_version
 
