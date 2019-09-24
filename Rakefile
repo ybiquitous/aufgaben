@@ -1,5 +1,6 @@
 require "bundler/gem_tasks"
 require "rake/testtask"
+require_relative "lib/aufgaben/release"
 
 task default: :test
 
@@ -8,3 +9,5 @@ Rake::TestTask.new do |t|
   t.test_files = FileList["test/**/*_test.rb"]
   t.verbose = true
 end
+
+Aufgaben::Release.new(:release_new)
