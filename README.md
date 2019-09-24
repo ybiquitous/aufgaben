@@ -34,6 +34,7 @@ Aufgaben::Release.new do |t|
   t.default_branch = "master"
   t.dry_run = false
   t.changelog = "CHANGELOG.md"
+  t.new_version = "1.2.3"
 end
 ```
 

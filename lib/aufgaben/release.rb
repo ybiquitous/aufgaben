@@ -7,12 +7,14 @@ module Aufgaben
     attr_accessor :default_branch
     attr_accessor :dry_run
     attr_accessor :changelog
+    attr_accessor :new_version
 
     def initialize(name = :release)
       @name = name
       @default_branch = "master"
       @dry_run = false
       @changelog = "CHANGELOG.md"
+      @new_version = nil
 
       yield self if block_given?
       define
@@ -27,7 +29,9 @@ module Aufgaben
     def define
       desc "Perform a release work"
       task name, [:version] do |_task, args|
-        new_version = args[:version] or abort "Required version!"
+        self.new_version = args[:version]
+
+        abort "Required a new version!" unless new_version
 
         msg "If you want to do this on dry-run mode, set `DRY_RUN=1`." unless dry_run?
 
@@ -116,7 +120,7 @@ module Aufgaben
         end
       end
 
-      raise "No remote repositories on GitHub!" unless repo
+      abort "No remote repositories on GitHub!" unless repo
 
       File.write(changelog, <<~CONTENT, encoding: Encoding::UTF_8)
         # Changelog

@@ -1,6 +1,7 @@
 require "bundler/gem_tasks"
 require "rake/testtask"
 require_relative "lib/aufgaben/release"
+require_relative "lib/aufgaben/version"
 
 task default: :test
 
