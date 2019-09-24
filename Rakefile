@@ -11,4 +11,6 @@ Rake::TestTask.new do |t|
   t.verbose = true
 end
 
-Aufgaben::Release.new(:release_new)
+Aufgaben::Release.new(:release_new) do |t|
+  t.new_version = Aufgaben::VERSION
+end
