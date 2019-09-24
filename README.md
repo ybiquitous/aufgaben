@@ -39,7 +39,11 @@ end
 
 And then execute:
 
-    $ rake release
+    $ rake release'[1.2.3]'
+
+Or in dry-run mode:
+
+    $ rake release'[1.2.3]' DRY_RUN=1
 
 ## Development
 
