@@ -33,7 +33,9 @@ module Aufgaben
 
         abort "Required a new version!" unless new_version
 
-        msg "If you want to do this on dry-run mode, set `DRY_RUN=1`." unless dry_run?
+        msg "Start releasing..."
+
+        msg "If you want to do this on dry-run mode, set 'DRY_RUN=1'." unless dry_run?
 
         sh "git checkout #{default_branch} --quiet"
         sh "git pull origin #{default_branch} --quiet"
@@ -54,9 +56,9 @@ module Aufgaben
         end
 
         if initial
-          msg "Releasing: #{new_version}"
+          msg "Releasing version: #{new_version}"
         else
-          msg "Releasing: #{current_version} -> #{new_version}"
+          msg "Releasing version: #{current_version} -> #{new_version}"
         end
 
         sh "git --no-pager log --oneline #{current_version}...HEAD"
@@ -101,7 +103,7 @@ module Aufgaben
       )
       File.write(changelog, new_lines.join("\n") + "\n")
 
-      msg "#{changelog} is updated."
+      msg "'#{changelog}' is updated."
     end
 
     def add_changelog(with:)
@@ -135,6 +137,8 @@ module Aufgaben
 
         Initial release.
       CONTENT
+
+      msg "'#{changelog}' is added."
     end
 
     def msg(text)
