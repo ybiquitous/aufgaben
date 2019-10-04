@@ -1,18 +1,15 @@
-require "rake"
-require "rake/tasklib"
+require_relative "base"
 
 module Aufgaben
-  class Release < ::Rake::TaskLib
+  class Release < Base
     attr_reader :name
     attr_accessor :default_branch
-    attr_accessor :dry_run
     attr_accessor :changelog
     attr_accessor :new_version
 
     def initialize(name = :release)
-      @name = name
+      super(name)
       @default_branch = "master"
-      @dry_run = false
       @changelog = "CHANGELOG.md"
       @new_version = nil
 
@@ -21,10 +18,6 @@ module Aufgaben
     end
 
     private
-
-    def dry_run?
-      ENV["DRY_RUN"] || dry_run
-    end
 
     def define
       desc "Perform a release work"

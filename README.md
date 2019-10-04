@@ -24,6 +24,8 @@ $ gem install aufgaben
 
 ## Usage
 
+### Releasing
+
 Put the following code to your `Rakefile`:
 
 ```ruby
@@ -61,6 +63,23 @@ Or in dry-run mode:
 
 ```shell
 $ rake release'[1.2.3]' DRY_RUN=1
+```
+
+### Bumping up Ruby
+
+Configure your `Rakefile` as follows:
+
+```ruby
+require "aufgaben/bump/ruby"
+Aufgaben::Bump::Ruby.new do |t|
+  t.files << "my-ruby-version-file" # defaults to [".ruby-version", "Dockerfile"]
+end
+```
+
+And then execute:
+
+```shell
+$ rake bump:ruby'[2.6.5]' [DRY_RUN=1]
 ```
 
 ## Development
