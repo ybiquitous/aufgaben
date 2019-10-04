@@ -1,9 +1,8 @@
-require "minitest/autorun"
-require "rake"
-require "pathname"
-require "open3"
+require "test_helper"
 
 class ReleaseTest < Minitest::Test
+  include TestHelper
+
   def test_normal_case
     in_tmpdir do |basedir, workdir, git_remote_path|
       (workdir / "Rakefile").write <<~CONTENT
@@ -123,40 +122,6 @@ class ReleaseTest < Minitest::Test
       after = sh! "git show --format=short"
 
       assert_equal before, after
-    end
-  end
-
-  private
-
-  def sh!(cmd, env: {})
-    stdout, stderr, status = Open3.capture3(env, cmd)
-    unless stdout.empty?
-      puts "STDOUT --------------------"
-      puts stdout
-      puts "---------------------------"
-      puts
-    end
-    unless stderr.empty?
-      puts "STDERR --------------------"
-      puts stderr
-      puts "---------------------------"
-      puts
-    end
-    status.success? or raise "Error: #{cmd}"
-    [stdout, stderr, status]
-  end
-
-  def in_tmpdir
-    basedir = Pathname(__dir__) / "../../"
-
-    Dir.mktmpdir do |git_remote_dir|
-      git_remote_path = Pathname(git_remote_dir) / "remote_repo.git"
-      sh! "git init --bare '#{git_remote_path}'"
-
-      Dir.mktmpdir do |workdir|
-        Dir.chdir workdir
-        yield basedir, Pathname(workdir), git_remote_path
-      end
     end
   end
 end
