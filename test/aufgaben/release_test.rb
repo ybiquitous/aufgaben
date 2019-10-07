@@ -3,10 +3,19 @@ require "test_helper"
 class ReleaseTest < Minitest::Test
   include TestHelper
 
+  def prepare_gemfile(basedir, workdir)
+    (workdir / "Gemfile").write <<~CONTENT
+      source "https://rubygems.org"
+      gem "aufgaben", path: "#{basedir}"
+    CONTENT
+  end
+
   def test_normal_case
     in_tmpdir do |basedir, workdir, git_remote_path|
+      prepare_gemfile basedir, workdir
+
       (workdir / "Rakefile").write <<~CONTENT
-        require_relative "#{basedir / 'lib/aufgaben/release'}"
+        require "aufgaben/release"
         Aufgaben::Release.new
       CONTENT
 
@@ -18,10 +27,6 @@ class ReleaseTest < Minitest::Test
         ## Unreleased
 
         [Full diff](https://example-git.com/foo/bar/compare/1.0.0...HEAD)
-      CONTENT
-
-      (workdir / "Gemfile").write <<~CONTENT
-        source "https://rubygems.org"
       CONTENT
 
       sh! "git init"
@@ -59,13 +64,11 @@ class ReleaseTest < Minitest::Test
 
   def test_initial_release
     in_tmpdir do |basedir, workdir, git_remote_path|
-      (workdir / "Rakefile").write <<~CONTENT
-        require_relative "#{basedir / 'lib/aufgaben/release'}"
-        Aufgaben::Release.new
-      CONTENT
+      prepare_gemfile basedir, workdir
 
-      (workdir / "Gemfile").write <<~CONTENT
-        source "https://rubygems.org"
+      (workdir / "Rakefile").write <<~CONTENT
+        require "aufgaben/release"
+        Aufgaben::Release.new
       CONTENT
 
       sh! "git init"
@@ -101,13 +104,11 @@ class ReleaseTest < Minitest::Test
 
   def test_dry_run_mode
     in_tmpdir do |basedir, workdir, git_remote_path|
-      (workdir / "Rakefile").write <<~CONTENT
-        require_relative "#{basedir / 'lib/aufgaben/release'}"
-        Aufgaben::Release.new
-      CONTENT
+      prepare_gemfile basedir, workdir
 
-      (workdir / "Gemfile").write <<~CONTENT
-        source "https://rubygems.org"
+      (workdir / "Rakefile").write <<~CONTENT
+        require "aufgaben/release"
+        Aufgaben::Release.new
       CONTENT
 
       sh! "git init"

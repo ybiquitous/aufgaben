@@ -26,4 +26,4 @@ jobs:
         git config --global user.email "you@example.com"
         git config --global user.name "Your Name"
     - name: Run tests
-      run: rake test
+      run: bundle exec rake test
