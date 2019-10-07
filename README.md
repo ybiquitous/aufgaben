@@ -12,11 +12,15 @@ gem "aufgaben"
 
 And then execute:
 
-    $ bundle
+```shell
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install aufgaben
+```shell
+$ gem install aufgaben
+```
 
 ## Usage
 
@@ -38,13 +42,26 @@ Aufgaben::Release.new do |t|
 end
 ```
 
+The following is a customization example:
+
+```ruby
+Aufgaben::Release.new(:my_release_task_name) do |t|
+  t.default_branch = "development"
+  t.changelog = "changes.md"
+end
+```
+
 And then execute:
 
-    $ rake release'[1.2.3]'
+```shell
+$ rake release'[1.2.3]'
+```
 
 Or in dry-run mode:
 
-    $ rake release'[1.2.3]' DRY_RUN=1
+```shell
+$ rake release'[1.2.3]' DRY_RUN=1
+```
 
 ## Development
 
