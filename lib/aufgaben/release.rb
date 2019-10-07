@@ -3,7 +3,7 @@ require "rake/tasklib"
 
 module Aufgaben
   class Release < ::Rake::TaskLib
-    attr_accessor :name
+    attr_reader :name
     attr_accessor :default_branch
     attr_accessor :dry_run
     attr_accessor :changelog
