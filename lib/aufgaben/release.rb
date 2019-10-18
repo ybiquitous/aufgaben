@@ -30,9 +30,9 @@ module Aufgaben
 
         msg "If you want to do this on dry-run mode, set 'DRY_RUN=1'." unless dry_run?
 
-        sh "git checkout #{default_branch} --quiet"
-        sh "git pull origin #{default_branch} --quiet"
-        sh "bundle install --quiet"
+        sh "git", "checkout", default_branch, "--quiet"
+        sh "git", "pull", "origin", default_branch, "--quiet"
+        sh "bundle", "install", "--quiet"
 
         current_version = `git describe --abbrev=0 --tags`.chomp
         if current_version.empty?
@@ -44,7 +44,7 @@ module Aufgaben
           end
         end
 
-        sh "git diff --exit-code --quiet" do |ok|
+        sh "git", "diff", "--exit-code", "--quiet" do |ok|
           abort "Uncommitted changes found!" unless ok
         end
 
@@ -54,7 +54,7 @@ module Aufgaben
           msg "Releasing version: #{current_version} -> #{new_version}"
         end
 
-        sh "git --no-pager log --oneline #{current_version}...HEAD"
+        sh "git", "--no-pager", "log", "--oneline", "#{current_version}..HEAD"
 
         if dry_run?
           msg "This is a dry-run mode. No actual changes. Next, run this without `DRY_RUN=1`."
@@ -64,9 +64,9 @@ module Aufgaben
           else
             add_changelog with: new_version
           end
-          sh "git add '#{changelog}'"
-          sh "git commit -m 'Version #{new_version}' --quiet"
-          sh "git tag -a #{new_version} -m 'Version #{new_version}'"
+          sh "git", "add", changelog
+          sh "git", "commit", "--quiet", "--message", "Version #{new_version}"
+          sh "git", "tag", "--annotate", "--message", "Version #{new_version}", new_version
           msg "The tag '#{new_version}' is added. Run 'git push --follow-tags'."
         end
       end
