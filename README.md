@@ -40,7 +40,8 @@ Aufgaben::Release.new do |t|
   t.default_branch = "master"
   t.dry_run = false
   t.changelog = "CHANGELOG.md"
-  t.new_version = "1.2.3"
+  t.files = []
+  t.new_version = nil # from the CLI argument
 end
 ```
 
@@ -50,6 +51,7 @@ The following is a customization example:
 Aufgaben::Release.new(:my_release_task_name) do |t|
   t.default_branch = "development"
   t.changelog = "changes.md"
+  t.files = ["lib/version.rb"]
 end
 ```
 
