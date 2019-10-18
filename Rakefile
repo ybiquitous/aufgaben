@@ -10,9 +10,8 @@ Rake::TestTask.new do |t|
 end
 
 require_relative "lib/aufgaben/release"
-require_relative "lib/aufgaben/version"
 Aufgaben::Release.new(:release_new) do |t|
-  t.new_version = Aufgaben::VERSION
+  t.files = ["lib/aufgaben/version.rb"]
 end
 
 require_relative "lib/aufgaben/bump/ruby"
