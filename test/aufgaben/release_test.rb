@@ -133,7 +133,7 @@ class ReleaseTest < Minitest::Test
       (workdir / "Rakefile").write <<~RUBY
         require "aufgaben/release"
         Aufgaben::Release.new do |t|
-          t.files = ["version.rb"]
+          t.files = ["version.rb", "*.{a,b}"]
         end
       RUBY
 
@@ -141,6 +141,9 @@ class ReleaseTest < Minitest::Test
         version = "0.9.1"
         version = "foo 0.9.1 bar"
       RUBY
+
+      (workdir / "test.a").write "a = 0.9.1"
+      (workdir / "test.b").write "b = 0.9.1"
 
       sh! "git init"
       sh! "git remote add origin '#{git_remote_path}'"
@@ -153,11 +156,15 @@ class ReleaseTest < Minitest::Test
 
       stdout, _ = sh! "git show --stat"
       assert_match "version.rb", stdout
+      assert_match "test.a", stdout
+      assert_match "test.b", stdout
 
       assert_equal <<~RUBY, (workdir / "version.rb").read
         version = "1.3.5"
         version = "foo 1.3.5 bar"
       RUBY
+      assert_equal "a = 1.3.5", (workdir / "test.a").read
+      assert_equal "b = 1.3.5", (workdir / "test.b").read
     end
   end
 end
