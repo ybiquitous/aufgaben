@@ -5,12 +5,14 @@ module Aufgaben
     attr_reader :name
     attr_accessor :default_branch
     attr_accessor :changelog
+    attr_accessor :files
     attr_accessor :new_version
 
     def initialize(name = :release)
       super(name)
       @default_branch = "master"
       @changelog = "CHANGELOG.md"
+      @files = []
       @new_version = nil
 
       yield self if block_given?
@@ -34,7 +36,6 @@ module Aufgaben
         sh "git", "pull", "origin", default_branch, "--quiet"
         sh "bundle", "install", "--quiet"
 
-        current_version = `git describe --abbrev=0 --tags`.chomp
         if current_version.empty?
           initial = true
         else
@@ -49,9 +50,9 @@ module Aufgaben
         end
 
         if initial
-          msg "Releasing version: #{new_version}"
+          msg "Releasing a new version: #{new_version}"
         else
-          msg "Releasing version: #{current_version} -> #{new_version}"
+          msg "Releasing a new version: #{current_version} -> #{new_version}"
         end
 
         sh "git", "--no-pager", "log", "--oneline", "#{current_version}..HEAD"
@@ -65,11 +66,21 @@ module Aufgaben
             add_changelog with: new_version
           end
           sh "git", "add", changelog
+
+          files.each do |file|
+            update_version_in file
+            sh "git", "add", file
+          end
+
           sh "git", "commit", "--quiet", "--message", "Version #{new_version}"
           sh "git", "tag", "--annotate", "--message", "Version #{new_version}", new_version
           msg "The tag '#{new_version}' is added. Run 'git push --follow-tags'."
         end
       end
+    end
+
+    def current_version
+      @current_version ||= `git describe --abbrev=0 --tags`.chomp
     end
 
     def update_changelog(from:, to:)
@@ -132,6 +143,14 @@ module Aufgaben
       CONTENT
 
       msg "'#{changelog}' is added."
+    end
+
+    def update_version_in(file)
+      content = File.read(file)
+      content = content.gsub(Regexp.new('\b' + Regexp.escape(current_version) + '\b'), new_version)
+      File.write(file, content)
+
+      msg "'#{file}' is updated."
     end
 
     def msg(text)
