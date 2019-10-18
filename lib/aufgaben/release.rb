@@ -67,7 +67,7 @@ module Aufgaben
           end
           sh "git", "add", changelog
 
-          files.each do |file|
+          Dir.glob(files, File::FNM_EXTGLOB).each do |file|
             update_version_in file
             sh "git", "add", file
           end
