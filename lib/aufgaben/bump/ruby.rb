@@ -18,8 +18,18 @@ module Aufgaben
       $ rake <%= ns %>:<%= name %>'[<%= next_version %>]'
       ```
 
-      See <https://www.ruby-lang.org/en/news>
+      See <%= release_note_url %>
     MSG
+
+    DEFAULT_RELEASE_NOTE_URL = "https://www.ruby-lang.org/en/news".freeze
+    RELEASE_NOTE_URLS = {
+      "2.6.5": "https://www.ruby-lang.org/en/news/2019/10/01/ruby-2-6-5-released/",
+      "2.6.4": "https://www.ruby-lang.org/en/news/2019/08/28/ruby-2-6-4-released/",
+      "2.6.3": "https://www.ruby-lang.org/en/news/2019/04/17/ruby-2-6-3-released/",
+      "2.6.2": "https://www.ruby-lang.org/en/news/2019/03/13/ruby-2-6-2-released/",
+      "2.6.1": "https://www.ruby-lang.org/en/news/2019/01/30/ruby-2-6-1-released/",
+      "2.6.0": "https://www.ruby-lang.org/en/news/2018/12/25/ruby-2-6-0-released/",
+    }.freeze
 
     attr_reader :name
     attr_reader :ns
@@ -86,6 +96,7 @@ module Aufgaben
         name: name,
         current_version: current_version,
         next_version: next_version,
+        release_note_url: RELEASE_NOTE_URLS.fetch(next_version.to_sym, DEFAULT_RELEASE_NOTE_URL)
       )
     end
   end
