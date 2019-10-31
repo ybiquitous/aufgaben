@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/ybiquitous/aufgaben/compare/0.3.0...HEAD)
+[Full diff](https://github.com/ybiquitous/aufgaben/compare/0.4.0...HEAD)
+
+## 0.4.0
+
+[Full diff](https://github.com/ybiquitous/aufgaben/compare/0.3.0...0.4.0)
 
 - Change `git log` format on `release` task [#16](https://github.com/ybiquitous/aufgaben/pull/16)
 - Enable interactive mode by default for `release` task [#18](https://github.com/ybiquitous/aufgaben/pull/18)
