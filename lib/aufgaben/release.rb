@@ -55,7 +55,7 @@ module Aufgaben
           msg "Releasing a new version: #{current_version} -> #{new_version}"
         end
 
-        sh "git", "--no-pager", "log", "--oneline", "#{current_version}..HEAD"
+        sh "git", "--no-pager", "log", "--pretty='format:%C(auto)%h %Creset%s'", "#{current_version}..HEAD"
 
         if dry_run?
           msg "This is a dry-run mode. No actual changes. Next, run this without `DRY_RUN=1`."
