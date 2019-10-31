@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.3.0...HEAD)
 
 - Change `git log` format on `release` task [#16](https://github.com/ybiquitous/aufgaben/pull/16)
+- Enable interactive mode by default for `release` task [#18](https://github.com/ybiquitous/aufgaben/pull/18)
 
 ## 0.3.0
 

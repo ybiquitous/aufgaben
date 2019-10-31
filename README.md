@@ -67,6 +67,13 @@ Or in dry-run mode:
 $ rake release'[1.2.3]' DRY_RUN=1
 ```
 
+By default, the release task is executed in interactive mode.
+If you want to disable the interactive mode, run as follow:
+
+```shell
+$ rake release'[1.2.3]' NONINTERACTIVE=1
+```
+
 ### Bumping up Ruby
 
 Configure your `Rakefile` as follows:

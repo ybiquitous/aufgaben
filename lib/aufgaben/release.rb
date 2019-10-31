@@ -60,6 +60,10 @@ module Aufgaben
         if dry_run?
           msg "This is a dry-run mode. No actual changes. Next, run this without `DRY_RUN=1`."
         else
+          if interactive?
+            answer_yes? or abort "Aborted."
+          end
+
           if File.exist? changelog
             update_changelog from: current_version, to: new_version
           else
@@ -157,6 +161,26 @@ module Aufgaben
       puts
       puts "> #{text}"
       puts
+    end
+
+    def interactive?
+      !ENV["NONINTERACTIVE"]
+    end
+
+    def answer_yes?
+      puts
+      loop do
+        print "> Perform the release of version #{new_version}? [y/N] "
+        answer = STDIN.gets.chomp.downcase
+        if answer == "y"
+          return true
+        elsif answer == "n" || answer == ""
+          return false
+        else
+          puts "> Please type 'y' or 'n'."
+          next
+        end
+      end
     end
   end
 end
