@@ -1,15 +1,15 @@
 name: Ruby Gem
 
-on:
-  pull_request:
-    branches:
-      - master
-  push:
-    branches:
-      - master
+on: [push]
 
 jobs:
+  check_skip:
+    runs-on: ubuntu-latest
+    if: "! contains(github.event.head_commit.message, '[skip ci]')"
+    steps:
+      - run: echo "${{ github.event.head_commit.message }}"
   test:
+    needs: [check_skip]
     name: Test
     runs-on: ubuntu-latest
     steps:
