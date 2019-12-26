@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.4.0...HEAD)
 
+- Support Ruby 2.7 for `bump:ruby` [#19](https://github.com/ybiquitous/aufgaben/pull/19)
+
 ## 0.4.0
 
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.3.0...0.4.0)
