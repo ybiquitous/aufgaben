@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/ybiquitous/aufgaben/compare/0.4.1...HEAD)
+[Full diff](https://github.com/ybiquitous/aufgaben/compare/0.4.2...HEAD)
+
+## 0.4.2
+
+[Full diff](https://github.com/ybiquitous/aufgaben/compare/0.4.1...0.4.2)
 
 - Add Ruby 2.7.1 and 2.6.6 news for `bump:ruby` [#21](https://github.com/ybiquitous/aufgaben/pull/21)
 
