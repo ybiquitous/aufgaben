@@ -23,7 +23,9 @@ module Aufgaben
 
     DEFAULT_RELEASE_NOTE_URL = "https://www.ruby-lang.org/en/news".freeze
     RELEASE_NOTE_URLS = {
+      "2.7.1": "https://www.ruby-lang.org/en/news/2020/03/31/ruby-2-7-1-released/",
       "2.7.0": "https://www.ruby-lang.org/en/news/2019/12/25/ruby-2-7-0-released/",
+      "2.6.6": "https://www.ruby-lang.org/en/news/2020/03/31/ruby-2-6-6-released/",
       "2.6.5": "https://www.ruby-lang.org/en/news/2019/10/01/ruby-2-6-5-released/",
       "2.6.4": "https://www.ruby-lang.org/en/news/2019/08/28/ruby-2-6-4-released/",
       "2.6.3": "https://www.ruby-lang.org/en/news/2019/04/17/ruby-2-6-3-released/",
