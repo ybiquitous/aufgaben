@@ -12,13 +12,13 @@ gem "aufgaben"
 
 And then execute:
 
-```shell
+```console
 $ bundle
 ```
 
 Or install it yourself as:
 
-```shell
+```console
 $ gem install aufgaben
 ```
 
@@ -57,20 +57,20 @@ end
 
 And then execute:
 
-```shell
+```console
 $ rake release'[1.2.3]'
 ```
 
 Or in dry-run mode:
 
-```shell
+```console
 $ rake release'[1.2.3]' DRY_RUN=1
 ```
 
 By default, the release task is executed in interactive mode.
 If you want to disable the interactive mode, run as follow:
 
-```shell
+```console
 $ rake release'[1.2.3]' NONINTERACTIVE=1
 ```
 
@@ -87,7 +87,7 @@ end
 
 And then execute:
 
-```shell
+```console
 $ rake bump:ruby'[2.6.5]' [DRY_RUN=1]
 ```
 
@@ -105,7 +105,7 @@ end
 
 And then execute:
 
-```shell
+```console
 $ rake bump:nodejs'[12.16.1]' [DRY_RUN=1]
 ```
 
