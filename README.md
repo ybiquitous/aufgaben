@@ -91,6 +91,24 @@ And then execute:
 $ rake bump:ruby'[2.6.5]' [DRY_RUN=1]
 ```
 
+### Bumping up Node.js
+
+Configure your `Rakefile` as follows:
+
+```ruby
+require "aufgaben/bump/nodejs"
+Aufgaben::Bump::Nodejs.new do |t|
+  t.files << "Dockerfile.production" # defaults to ["Dockerfile"]
+  t.version_files << "nodejs-version.txt" # defaults to [".node-version", ".nvmrc"]
+end
+```
+
+And then execute:
+
+```shell
+$ rake bump:nodejs'[12.16.1]' [DRY_RUN=1]
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
