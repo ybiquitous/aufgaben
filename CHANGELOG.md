@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.4.2...HEAD)
 
+- Add `bump:nodejs` task [#22](https://github.com/ybiquitous/aufgaben/pull/22)
+
 ## 0.4.2
 
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.4.1...0.4.2)

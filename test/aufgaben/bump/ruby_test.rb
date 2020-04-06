@@ -22,9 +22,17 @@ class BumpRubyTest < Minitest::Test
       assert_equal "2.6.5\n", Pathname(".ruby-version").read
 
       stdout, = sh! "git show --pretty=full"
-      assert_match "Bump Ruby from 2.6.4 to 2.6.5", stdout
-      assert_match "$ rake bump:ruby'[2.6.5]'", stdout
-      assert_match "See https://www.ruby-lang.org/en/news/2019/10/01/ruby-2-6-5-released/", stdout
+      assert_includes stdout, <<~MSG.gsub(/^/, "    ")
+        Bump Ruby from 2.6.4 to 2.6.5
+
+        Via:
+
+        ```console
+        $ rake bump:ruby'[2.6.5]'
+        ```
+
+        Read the [release note](https://www.ruby-lang.org/en/news/2019/10/01/ruby-2-6-5-released/) for details.
+      MSG
     end
   end
 
