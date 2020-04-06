@@ -87,18 +87,18 @@ MSG
             sh "git", "commit", "-m", commit_message
           end
         end
+      end
 
-        def commit_message
-          ERB.new(commit_message_template).result_with_hash(
-            ns: ns,
-            name: name,
-            target_name: target_name,
-            current_version: current_version,
-            next_version: next_version,
-            release_label: release_label,
-            release_url: release_url,
-          )
-        end
+      def commit_message
+        ERB.new(commit_message_template).result_with_hash(
+          ns: ns,
+          name: name,
+          target_name: target_name,
+          current_version: current_version,
+          next_version: next_version,
+          release_label: release_label,
+          release_url: release_url,
+        )
       end
     end
   end
