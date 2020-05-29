@@ -1,6 +1,6 @@
 # Aufgaben
 
-> Provide useful Rake tasks
+The collection of useful Rake tasks.
 
 ## Installation
 
