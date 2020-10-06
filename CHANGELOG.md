@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.5.0...HEAD)
 
+- Add Ruby 2.7 for `bump:ruby` [#25](https://github.com/ybiquitous/aufgaben/pull/25)
+
 ## 0.5.0
 
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.4.2...0.5.0)
