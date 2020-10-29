@@ -10,7 +10,7 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7
-      - run: gem install typeprof
+      - run: bundle config set with typecheck && bundle install
       - uses: ybiquitous/typeprof-action@main
         with:
           file: "lib/aufgaben/**/{release,ruby,nodejs}.rb"
