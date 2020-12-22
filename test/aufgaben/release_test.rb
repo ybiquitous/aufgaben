@@ -82,9 +82,7 @@ class ReleaseTest < Minitest::Test
       sh! "git commit -m 'Init'"
       sh! "git push origin master"
 
-      sh! "rake release'[1.0.0]' NONINTERACTIVE=1", {
-        env: { "AUFGABEN_GIT_REMOTE_COMMAND" => "echo 'origin git@github.com:user/repo.git (push)'" },
-      }
+      sh! "rake release'[1.0.0]' NONINTERACTIVE=1", env: { "AUFGABEN_GIT_REMOTE_COMMAND" => "echo 'origin git@github.com:user/repo.git (push)'" }
       sh! "git push --follow-tags origin master"
 
       stdout, = sh! "git show"
@@ -159,9 +157,7 @@ class ReleaseTest < Minitest::Test
       sh! "git tag -a 0.9.1 -m 'Version 0.9.1'"
       sh! "git push --follow-tags origin master"
 
-      sh! "rake release'[1.3.5]' NONINTERACTIVE=1", {
-        env: { "AUFGABEN_GIT_REMOTE_COMMAND" => "echo 'origin git@github.com:user/repo.git (push)'" },
-      }
+      sh! "rake release'[1.3.5]' NONINTERACTIVE=1", env: { "AUFGABEN_GIT_REMOTE_COMMAND" => "echo 'origin git@github.com:user/repo.git (push)'" }
 
       stdout, _ = sh! "git show --stat"
       assert_match "version.rb", stdout
