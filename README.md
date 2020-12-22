@@ -7,7 +7,7 @@ The collection of useful Rake tasks.
 Add this line to your `Gemfile`:
 
 ```ruby
-gem "aufgaben"
+gem "aufgaben", require: false
 ```
 
 And then execute:
