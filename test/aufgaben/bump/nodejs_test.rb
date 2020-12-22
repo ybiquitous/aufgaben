@@ -1,4 +1,5 @@
 require "test_helper"
+require_relative "../../../lib/aufgaben/bump/nodejs"
 
 class BumpNodejsTest < Minitest::Test
   include TestHelper
@@ -68,6 +69,20 @@ class BumpNodejsTest < Minitest::Test
         FROM node:12.16.1
         RUN node -v
       EOF
+    end
+  end
+
+  def test_depends
+    in_tmpdir git: false do
+      File.write "Rakefile", <<~RUBY
+        require "aufgaben/bump/nodejs"
+        Aufgaben::Bump::Nodejs.new(:foo, :node, depends: [:test])
+        task :test
+      RUBY
+
+      _, stderr, _ = sh! "rake node:foo --dry-run"
+      assert_includes stderr, "Invoke node:foo"
+      assert_includes stderr, "Invoke test"
     end
   end
 end

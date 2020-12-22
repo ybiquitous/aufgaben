@@ -24,8 +24,8 @@ MSG
       attr_accessor :current_version
       attr_accessor :commit_message_template
 
-      def initialize(name, ns, target_name)
-        super(name)
+      def initialize(name, ns, target_name, depends:)
+        super(name, depends: depends)
 
         @ns = ns || default_namespace
         @target_name = target_name
@@ -52,7 +52,7 @@ MSG
 
       def define
         desc "Bump #{target_name} version"
-        task name, [:next_version] do |_task, args|
+        task name, [:next_version] => depends do |_task, args|
           self.next_version = args.fetch(:next_version) or raise "`next_version is required`"
           current_version or raise "`current_version` is required"
 

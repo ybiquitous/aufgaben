@@ -13,11 +13,11 @@ module Aufgaben
 
     attr_accessor :version_files
 
-    def initialize(name = :nodejs, ns = default_namespace)
+    def initialize(name = :nodejs, ns = default_namespace, depends: [])
       self.files = DEFAULT_FILES.dup
       self.version_files = DEFAULT_VERSION_FILES.dup
 
-      super(name, ns, "Node.js")
+      super(name, ns, "Node.js", depends: depends)
     end
 
     private

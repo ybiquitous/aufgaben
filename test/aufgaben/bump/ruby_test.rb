@@ -1,4 +1,5 @@
 require "test_helper"
+require_relative "../../../lib/aufgaben/bump/ruby"
 
 class BumpRubyTest < Minitest::Test
   include TestHelper
@@ -99,6 +100,20 @@ class BumpRubyTest < Minitest::Test
 
       stdout, = sh! "git show --pretty=full"
       assert_match "Init", stdout
+    end
+  end
+
+  def test_depends
+    in_tmpdir git: false do
+      Pathname("Rakefile").write <<~CONTENT
+        require "aufgaben/bump/ruby"
+        Aufgaben::Bump::Ruby.new(:foo, :ruby, depends: [:test])
+        task :test
+      CONTENT
+
+      _, stderr, _ = sh! "rake ruby:foo --dry-run"
+      assert_includes stderr, "Invoke ruby:foo"
+      assert_includes stderr, "Invoke test"
     end
   end
 end

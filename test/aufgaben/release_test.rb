@@ -1,4 +1,5 @@
 require "test_helper"
+require_relative "../../lib/aufgaben/release"
 
 class ReleaseTest < Minitest::Test
   include TestHelper
@@ -77,9 +78,7 @@ class ReleaseTest < Minitest::Test
       sh! "git commit -m 'Init'"
       sh! "git push origin master"
 
-      sh! "rake release'[1.0.0]' NONINTERACTIVE=1", {
-        env: { "AUFGABEN_GIT_REMOTE_COMMAND" => "echo 'origin git@github.com:user/repo.git (push)'" },
-      }
+      sh! "rake release'[1.0.0]' NONINTERACTIVE=1", env: { "AUFGABEN_GIT_REMOTE_COMMAND" => "echo 'origin git@github.com:user/repo.git (push)'" }
       sh! "git push --follow-tags origin master"
 
       stdout, = sh! "git show"
@@ -154,9 +153,7 @@ class ReleaseTest < Minitest::Test
       sh! "git tag -a 0.9.1 -m 'Version 0.9.1'"
       sh! "git push --follow-tags origin master"
 
-      sh! "rake release'[1.3.5]' NONINTERACTIVE=1", {
-        env: { "AUFGABEN_GIT_REMOTE_COMMAND" => "echo 'origin git@github.com:user/repo.git (push)'" },
-      }
+      sh! "rake release'[1.3.5]' NONINTERACTIVE=1", env: { "AUFGABEN_GIT_REMOTE_COMMAND" => "echo 'origin git@github.com:user/repo.git (push)'" }
 
       stdout, _ = sh! "git show --stat"
       assert_match "version.rb", stdout
@@ -169,6 +166,22 @@ class ReleaseTest < Minitest::Test
       RUBY
       assert_equal "a = 1.3.5", (workdir / "test.a").read
       assert_equal "b = 1.3.5", (workdir / "test.b").read
+    end
+  end
+
+  def test_depends
+    in_tmpdir git: false do |basedir, workdir|
+      prepare_gemfile basedir, workdir
+
+      (workdir / "Rakefile").write <<~RUBY
+        require "aufgaben/release"
+        Aufgaben::Release.new(:foo, depends: [:test])
+        task :test
+      RUBY
+
+      _, stderr, _ = sh! "rake foo'[1.0]' --dry-run"
+      assert_includes stderr, "Invoke foo"
+      assert_includes stderr, "Invoke test"
     end
   end
 end

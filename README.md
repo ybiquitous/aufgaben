@@ -48,7 +48,7 @@ end
 The following is a customization example:
 
 ```ruby
-Aufgaben::Release.new(:my_release_task_name) do |t|
+Aufgaben::Release.new(:my_release_task_name, depends: [:test]) do |t|
   t.default_branch = "development"
   t.changelog = "changes.md"
   t.files = ["lib/version.rb", "lib/**/ver.rb"] # glob available
