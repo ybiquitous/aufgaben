@@ -51,7 +51,7 @@ The following is a customization example:
 Aufgaben::Release.new(:my_release_task_name, depends: [:test]) do |t|
   t.default_branch = "development"
   t.changelog = "changes.md"
-  t.files = ["lib/version.rb", "lib/**/ver.rb"] # glob available
+  t.files = FileList["lib/version.rb", "lib/**/ver.rb"]
 end
 ```
 
