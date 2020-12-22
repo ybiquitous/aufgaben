@@ -91,6 +91,18 @@ And then execute:
 $ rake bump:ruby'[2.6.5]' [DRY_RUN=1]
 ```
 
+Also, you can customize the task name or dependencies as follows:
+
+```ruby
+require "aufgaben/bump/ruby"
+Aufgaben::Bump::Ruby.new(:ruby_files, :update, dependes: [:test])
+```
+
+```console
+# Invoke the `test` task before
+$ rake update:ruby_files'[2.7.2]'
+```
+
 ### Bumping up Node.js
 
 Configure your `Rakefile` as follows:
