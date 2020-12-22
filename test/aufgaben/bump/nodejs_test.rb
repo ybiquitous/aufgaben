@@ -4,10 +4,6 @@ require_relative "../../../lib/aufgaben/bump/nodejs"
 class BumpNodejsTest < Minitest::Test
   include TestHelper
 
-  def teardown
-    Rake::Task.clear
-  end
-
   def run!(arg)
     sh! "git init"
     sh! "git add ."
@@ -78,17 +74,15 @@ class BumpNodejsTest < Minitest::Test
 
   def test_depends
     in_tmpdir git: false do
-      name = __method__
-      Aufgaben::Bump::Nodejs.new(name, :nodejs, depends: [:test])
-      assert_equal ["test"], Rake::Task["nodejs:#{name}"].prerequisites
-    end
-  end
+      File.write "Rakefile", <<~RUBY
+        require "aufgaben/bump/nodejs"
+        Aufgaben::Bump::Nodejs.new(:foo, :node, depends: [:test])
+        task :test
+      RUBY
 
-  def test_depends_by_default
-    in_tmpdir git: false do
-      name = __method__
-      Aufgaben::Bump::Nodejs.new(name)
-      assert_equal [], Rake::Task["bump:#{name}"].prerequisites
+      _, stderr, _ = sh! "rake node:foo --dry-run"
+      assert_includes stderr, "Invoke node:foo"
+      assert_includes stderr, "Invoke test"
     end
   end
 end

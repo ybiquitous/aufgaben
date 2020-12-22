@@ -4,10 +4,6 @@ require_relative "../../../lib/aufgaben/bump/ruby"
 class BumpRubyTest < Minitest::Test
   include TestHelper
 
-  def teardown
-    Rake::Task.clear
-  end
-
   def test_normal_case
     in_tmpdir do
       Pathname("Rakefile").write <<~CONTENT
@@ -109,17 +105,15 @@ class BumpRubyTest < Minitest::Test
 
   def test_depends
     in_tmpdir git: false do
-      name = __method__
-      Aufgaben::Bump::Ruby.new(name, :ruby, depends: [:test])
-      assert_equal ["test"], Rake::Task["ruby:#{name}"].prerequisites
-    end
-  end
+      Pathname("Rakefile").write <<~CONTENT
+        require "aufgaben/bump/ruby"
+        Aufgaben::Bump::Ruby.new(:foo, :ruby, depends: [:test])
+        task :test
+      CONTENT
 
-  def test_depends_by_default
-    in_tmpdir git: false do
-      name = __method__
-      Aufgaben::Bump::Ruby.new(name)
-      assert_equal [], Rake::Task["bump:#{name}"].prerequisites
+      _, stderr, _ = sh! "rake ruby:foo --dry-run"
+      assert_includes stderr, "Invoke ruby:foo"
+      assert_includes stderr, "Invoke test"
     end
   end
 end

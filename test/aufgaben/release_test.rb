@@ -4,10 +4,6 @@ require_relative "../../lib/aufgaben/release"
 class ReleaseTest < Minitest::Test
   include TestHelper
 
-  def teardown
-    Rake::Task.clear
-  end
-
   def prepare_gemfile(basedir, workdir)
     (workdir / "Gemfile").write <<~CONTENT
       source "https://rubygems.org"
@@ -174,16 +170,18 @@ class ReleaseTest < Minitest::Test
   end
 
   def test_depends
-    name = __method__
-    Aufgaben::Release.new(name, depends: [:test])
-    assert_equal ["test"], Rake::Task[name].prerequisites
-  end
+    in_tmpdir git: false do |basedir, workdir|
+      prepare_gemfile basedir, workdir
 
-  def test_depends_by_default
-    in_tmpdir git: false do
-      name = __method__
-      Aufgaben::Release.new(name)
-      assert_equal [], Rake::Task[name].prerequisites
+      (workdir / "Rakefile").write <<~RUBY
+        require "aufgaben/release"
+        Aufgaben::Release.new(:foo, depends: [:test])
+        task :test
+      RUBY
+
+      _, stderr, _ = sh! "rake foo'[1.0]' --dry-run"
+      assert_includes stderr, "Invoke foo"
+      assert_includes stderr, "Invoke test"
     end
   end
 end

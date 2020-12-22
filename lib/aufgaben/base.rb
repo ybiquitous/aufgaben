@@ -8,7 +8,7 @@ module Aufgaben
     attr_accessor :dry_run
 
     def initialize(name, depends:)
-      super
+      super()
       @name = name
       @depends = depends
       @dry_run = false
