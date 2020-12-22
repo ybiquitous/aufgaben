@@ -10,13 +10,7 @@ Add this line to your `Gemfile`:
 gem "aufgaben", require: false
 ```
 
-And then execute:
-
-```console
-$ bundle
-```
-
-Or install it yourself as:
+Or install it via `gem`:
 
 ```console
 $ gem install aufgaben
