@@ -184,8 +184,10 @@ class ReleaseTest < Minitest::Test
   end
 
   def test_depends_by_default
-    name = __method__
-    Aufgaben::Release.new(name)
-    assert_equal [], Rake::Task[name].prerequisites
+    in_tmpdir git: false do
+      name = __method__
+      Aufgaben::Release.new(name)
+      assert_equal [], Rake::Task[name].prerequisites
+    end
   end
 end

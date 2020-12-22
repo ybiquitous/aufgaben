@@ -108,14 +108,18 @@ class BumpRubyTest < Minitest::Test
   end
 
   def test_depends
-    name = __method__
-    Aufgaben::Bump::Ruby.new(name, :ruby, depends: [:test])
-    assert_equal ["test"], Rake::Task["ruby:#{name}"].prerequisites
+    in_tmpdir git: false do
+      name = __method__
+      Aufgaben::Bump::Ruby.new(name, :ruby, depends: [:test])
+      assert_equal ["test"], Rake::Task["ruby:#{name}"].prerequisites
+    end
   end
 
   def test_depends_by_default
-    name = __method__
-    Aufgaben::Bump::Ruby.new(name)
-    assert_equal [], Rake::Task["bump:#{name}"].prerequisites
+    in_tmpdir git: false do
+      name = __method__
+      Aufgaben::Bump::Ruby.new(name)
+      assert_equal [], Rake::Task["bump:#{name}"].prerequisites
+    end
   end
 end
