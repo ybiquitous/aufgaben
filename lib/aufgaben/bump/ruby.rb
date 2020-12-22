@@ -21,11 +21,11 @@ module Aufgaben
       "2.6.0": "https://www.ruby-lang.org/en/news/2018/12/25/ruby-2-6-0-released/",
     }.freeze
 
-    def initialize(name = :ruby, ns = default_namespace)
+    def initialize(name = :ruby, ns = default_namespace, depends: [])
       self.files = DEFAULT_FILES.dup
       self.current_version = RUBY_VERSION
 
-      super(name, ns, "Ruby")
+      super(name, ns, "Ruby", depends: depends)
     end
 
     private

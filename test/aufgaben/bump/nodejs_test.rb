@@ -1,4 +1,5 @@
 require "test_helper"
+require_relative "../../../lib/aufgaben/bump/nodejs"
 
 class BumpNodejsTest < Minitest::Test
   include TestHelper
@@ -69,5 +70,17 @@ class BumpNodejsTest < Minitest::Test
         RUN node -v
       EOF
     end
+  end
+
+  def test_depends
+    name = __method__
+    Aufgaben::Bump::Nodejs.new(name, depends: [:test])
+    assert_equal ["test"], Rake::Task[name].prerequisites
+  end
+
+  def test_depends_by_default
+    name = __method__
+    Aufgaben::Bump::Nodejs.new(name)
+    assert_equal [], Rake::Task[name].prerequisites
   end
 end

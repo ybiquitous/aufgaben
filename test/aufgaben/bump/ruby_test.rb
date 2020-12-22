@@ -1,4 +1,5 @@
 require "test_helper"
+require_relative "../../../lib/aufgaben/bump/ruby"
 
 class BumpRubyTest < Minitest::Test
   include TestHelper
@@ -100,5 +101,17 @@ class BumpRubyTest < Minitest::Test
       stdout, = sh! "git show --pretty=full"
       assert_match "Init", stdout
     end
+  end
+
+  def test_depends
+    name = __method__
+    Aufgaben::Bump::Ruby.new(name, depends: [:test])
+    assert_equal ["test"], Rake::Task[name].prerequisites
+  end
+
+  def test_depends_by_default
+    name = __method__
+    Aufgaben::Bump::Ruby.new(name)
+    assert_equal [], Rake::Task[name].prerequisites
   end
 end

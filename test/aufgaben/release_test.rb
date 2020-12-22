@@ -1,4 +1,5 @@
 require "test_helper"
+require_relative "../../lib/aufgaben/release"
 
 class ReleaseTest < Minitest::Test
   include TestHelper
@@ -170,5 +171,17 @@ class ReleaseTest < Minitest::Test
       assert_equal "a = 1.3.5", (workdir / "test.a").read
       assert_equal "b = 1.3.5", (workdir / "test.b").read
     end
+  end
+
+  def test_depends
+    name = __method__
+    Aufgaben::Release.new(name, depends: [:test])
+    assert_equal ["test"], Rake::Task[name].prerequisites
+  end
+
+  def test_depends_by_default
+    name = __method__
+    Aufgaben::Release.new(name)
+    assert_equal [], Rake::Task[name].prerequisites
   end
 end

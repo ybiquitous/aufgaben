@@ -2,14 +2,13 @@ require_relative "base"
 
 module Aufgaben
   class Release < Base
-    attr_reader :name
     attr_accessor :default_branch
     attr_accessor :changelog
     attr_accessor :files
     attr_accessor :new_version
 
-    def initialize(name = :release)
-      super(name)
+    def initialize(name = :release, depends: [])
+      super(name, depends: depends)
       @default_branch = "master"
       @changelog = "CHANGELOG.md"
       @files = []
@@ -23,7 +22,7 @@ module Aufgaben
 
     def define
       desc "Perform a release work"
-      task name, [:version] do |_task, args|
+      task name, [:version] => depends do |_task, args|
         self.new_version = args[:version] if args[:version]
 
         abort "Required a new version!" unless new_version
