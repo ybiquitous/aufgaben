@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.5.1...HEAD)
 
+- Support Rake task dependencies [#29](https://github.com/ybiquitous/aufgaben/pull/29)
+
 ## 0.5.1
 
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.5.0...0.5.1)
