@@ -4,6 +4,10 @@ require_relative "../../../lib/aufgaben/bump/nodejs"
 class BumpNodejsTest < Minitest::Test
   include TestHelper
 
+  def teardown
+    Rake::Task.clear
+  end
+
   def run!(arg)
     sh! "git init"
     sh! "git add ."

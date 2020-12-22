@@ -4,6 +4,10 @@ require_relative "../../lib/aufgaben/release"
 class ReleaseTest < Minitest::Test
   include TestHelper
 
+  def teardown
+    Rake::Task.clear
+  end
+
   def prepare_gemfile(basedir, workdir)
     (workdir / "Gemfile").write <<~CONTENT
       source "https://rubygems.org"

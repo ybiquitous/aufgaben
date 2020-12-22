@@ -4,6 +4,10 @@ require_relative "../../../lib/aufgaben/bump/ruby"
 class BumpRubyTest < Minitest::Test
   include TestHelper
 
+  def teardown
+    Rake::Task.clear
+  end
+
   def test_normal_case
     in_tmpdir do
       Pathname("Rakefile").write <<~CONTENT
