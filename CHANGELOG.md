@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.6.0...HEAD)
 
+- Add Ruby 3.0.0 for `bump:ruby` [#30](https://github.com/ybiquitous/aufgaben/pull/30)
+
 ## 0.6.0
 
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.5.1...0.6.0)
