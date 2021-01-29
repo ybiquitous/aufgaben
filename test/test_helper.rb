@@ -5,7 +5,7 @@ require "open3"
 
 module TestHelper
   def sh!(*cmd, env: {})
-    cmd = cmd.map { _1.respond_to?(:to_path) ? _1.to_path : _1 }
+    cmd = cmd.map { |arg| arg.respond_to?(:to_path) ? arg.to_path : arg }
     stdout, stderr, status = Open3.capture3(env, *cmd)
     unless stdout.empty?
       puts "STDOUT --------------------"
