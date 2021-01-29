@@ -25,7 +25,9 @@ module Aufgaben
       task name, [:version] => depends do |_task, args|
         self.new_version = args[:version] if args[:version]
 
-        abort "Required a new version!" unless new_version
+        unless new_version
+          abort "Specify a new version. Usage: rake #{name}[version]"
+        end
 
         msg "Start releasing..."
 

@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.6.1...HEAD)
 
+- Improve error message of release task [#33](https://github.com/ybiquitous/aufgaben/pull/33)
+
 ## 0.6.1
 
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.6.0...0.6.1)

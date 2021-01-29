@@ -4,7 +4,7 @@ require "pathname"
 require "open3"
 
 module TestHelper
-  def sh!(*cmd, env: {})
+  def sh!(*cmd, env: {}, error: true)
     cmd = cmd.map { |arg| arg.respond_to?(:to_path) ? arg.to_path : arg }
     stdout, stderr, status = Open3.capture3(env, *cmd)
     unless stdout.empty?
@@ -19,7 +19,9 @@ module TestHelper
       puts "---------------------------"
       puts
     end
-    status.success? or raise "Error: #{cmd.join(' ')}"
+    if error && !status.success?
+      raise "Error: #{cmd.join(' ')}"
+    end
     [stdout, stderr, status]
   end
 
