@@ -4,15 +4,8 @@ require_relative "../../lib/aufgaben/release"
 class ReleaseTest < Minitest::Test
   include TestHelper
 
-  def prepare_gemfile(basedir, workdir)
-    (workdir / "Gemfile").write <<~CONTENT
-      source "https://rubygems.org"
-      gem "aufgaben", path: "#{basedir}"
-    CONTENT
-  end
-
   def test_normal_case
-    in_tmpdir do |basedir, workdir, git_remote_path|
+    in_tmpdir do |basedir, workdir, git_remote_path, default_branch|
       prepare_gemfile basedir, workdir
 
       (workdir / "Rakefile").write <<~CONTENT
@@ -30,20 +23,20 @@ class ReleaseTest < Minitest::Test
         [Full diff](https://example-git.com/foo/bar/compare/1.0.0...HEAD)
       CONTENT
 
-      sh! "git init"
-      sh! "git remote add origin '#{git_remote_path}'"
-      sh! "git add ."
-      sh! "git commit -m 'Init'"
-      sh! "git tag -a 1.0.0 -m 'Version 1.0.0'"
-      sh! "git push --follow-tags origin master"
+      init_git_repo! git_remote_path, default_branch
 
-      sh! "rake release'[1.1.0]' NONINTERACTIVE=1"
-      sh! "git push --follow-tags origin master"
+      sh! "git", "add", "."
+      sh! "git", "commit", "-m", "Init"
+      sh! "git", "tag", "-a", "1.0.0", "-m", "Version 1.0.0"
+      sh! "git", "push", "--follow-tags"
 
-      stdout, = sh! "git show"
+      sh! "rake", "release[1.1.0]", "NONINTERACTIVE=1"
+      sh! "git", "push", "--follow-tags"
+
+      stdout, = sh! "git", "show"
       assert_match "Version 1.1.0", stdout
 
-      stdout, = sh! "git ls-remote --tags"
+      stdout, = sh! "git", "ls-remote", "--tags"
       assert_match "refs/tags/1.0.0", stdout
       assert_match "refs/tags/1.1.0", stdout
 
@@ -64,7 +57,7 @@ class ReleaseTest < Minitest::Test
   end
 
   def test_initial_release
-    in_tmpdir do |basedir, workdir, git_remote_path|
+    in_tmpdir do |basedir, workdir, git_remote_path, default_branch|
       prepare_gemfile basedir, workdir
 
       (workdir / "Rakefile").write <<~CONTENT
@@ -72,19 +65,19 @@ class ReleaseTest < Minitest::Test
         Aufgaben::Release.new
       CONTENT
 
-      sh! "git init"
-      sh! "git remote add origin '#{git_remote_path}'"
-      sh! "git add ."
-      sh! "git commit -m 'Init'"
-      sh! "git push origin master"
+      init_git_repo! git_remote_path, default_branch
 
-      sh! "rake release'[1.0.0]' NONINTERACTIVE=1", env: { "AUFGABEN_GIT_REMOTE_COMMAND" => "echo 'origin git@github.com:user/repo.git (push)'" }
-      sh! "git push --follow-tags origin master"
+      sh! "git", "add", "."
+      sh! "git", "commit", "-m", "Init"
+      sh! "git", "push"
 
-      stdout, = sh! "git show"
+      sh! "rake", "release[1.0.0]", "NONINTERACTIVE=1", env: { "AUFGABEN_GIT_REMOTE_COMMAND" => "echo 'origin git@github.com:user/repo.git (push)'" }
+      sh! "git", "push", "--follow-tags"
+
+      stdout, = sh! "git", "show"
       assert_match "Version 1.0.0", stdout
 
-      stdout, = sh! "git ls-remote --tags"
+      stdout, = sh! "git", "ls-remote", "--tags"
       assert_match "refs/tags/1.0.0", stdout
 
       assert_equal <<~CONTENT, (workdir / "CHANGELOG.md").read
@@ -104,7 +97,7 @@ class ReleaseTest < Minitest::Test
   end
 
   def test_dry_run_mode
-    in_tmpdir do |basedir, workdir, git_remote_path|
+    in_tmpdir do |basedir, workdir, git_remote_path, default_branch|
       prepare_gemfile basedir, workdir
 
       (workdir / "Rakefile").write <<~CONTENT
@@ -112,23 +105,23 @@ class ReleaseTest < Minitest::Test
         Aufgaben::Release.new
       CONTENT
 
-      sh! "git init"
-      sh! "git remote add origin '#{git_remote_path}'"
-      sh! "git add ."
-      sh! "git commit -m 'Init'"
-      sh! "git tag -a 1.0.0 -m 'Version 1.0.0'"
-      sh! "git push --follow-tags origin master"
+      init_git_repo! git_remote_path, default_branch
 
-      before = sh! "git show --format=short"
-      sh! "rake release'[2.0.0]' DRY_RUN=1"
-      after = sh! "git show --format=short"
+      sh! "git", "add", "."
+      sh! "git", "commit", "-m", "Init"
+      sh! "git", "tag", "-a", "1.0.0", "-m", "Version 1.0.0"
+      sh! "git", "push", "--follow-tags"
+
+      before = sh! "git", "show", "--format=short"
+      sh! "rake", "release[2.0.0]", "DRY_RUN=1"
+      after = sh! "git", "show", "--format=short"
 
       assert_equal before, after
     end
   end
 
   def test_update_files
-    in_tmpdir do |basedir, workdir, git_remote_path|
+    in_tmpdir do |basedir, workdir, git_remote_path, default_branch|
       prepare_gemfile basedir, workdir
 
       (workdir / "Rakefile").write <<~RUBY
@@ -146,16 +139,16 @@ class ReleaseTest < Minitest::Test
       (workdir / "test.a").write "a = 0.9.1"
       (workdir / "test.b").write "b = 0.9.1"
 
-      sh! "git init"
-      sh! "git remote add origin '#{git_remote_path}'"
-      sh! "git add ."
-      sh! "git commit -m 'Init'"
-      sh! "git tag -a 0.9.1 -m 'Version 0.9.1'"
-      sh! "git push --follow-tags origin master"
+      init_git_repo! git_remote_path, default_branch
 
-      sh! "rake release'[1.3.5]' NONINTERACTIVE=1", env: { "AUFGABEN_GIT_REMOTE_COMMAND" => "echo 'origin git@github.com:user/repo.git (push)'" }
+      sh! "git", "add", "."
+      sh! "git", "commit", "-m", "Init"
+      sh! "git", "tag", "-a", "0.9.1", "-m", "Version 0.9.1"
+      sh! "git", "push", "--follow-tags"
 
-      stdout, _ = sh! "git show --stat"
+      sh! "rake", "release[1.3.5]", "NONINTERACTIVE=1", env: { "AUFGABEN_GIT_REMOTE_COMMAND" => "echo 'origin git@github.com:user/repo.git (push)'" }
+
+      stdout, _ = sh! "git", "show", "--stat"
       assert_match "version.rb", stdout
       assert_match "test.a", stdout
       assert_match "test.b", stdout
@@ -179,9 +172,24 @@ class ReleaseTest < Minitest::Test
         task :test
       RUBY
 
-      _, stderr, _ = sh! "rake foo'[1.0]' --dry-run"
+      _, stderr, _ = sh! "rake", "foo[1.0]", "--dry-run"
       assert_includes stderr, "Invoke foo"
       assert_includes stderr, "Invoke test"
     end
+  end
+
+  private
+
+  def init_git_repo!(remote_path, default_branch)
+    sh! "git", "init", "--initial-branch=#{default_branch}"
+    sh! "git", "config", "push.default", "current"
+    sh! "git", "remote", "add", "origin", remote_path
+  end
+
+  def prepare_gemfile(basedir, workdir)
+    (workdir / "Gemfile").write <<~CONTENT
+      source "https://rubygems.org"
+      gem "aufgaben", path: "#{basedir}"
+    CONTENT
   end
 end
