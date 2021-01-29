@@ -178,6 +178,22 @@ class ReleaseTest < Minitest::Test
     end
   end
 
+  def test_no_version
+    in_tmpdir git: false do |basedir, workdir|
+      prepare_gemfile basedir, workdir
+
+      (workdir / "Rakefile").write <<~RUBY
+        require "aufgaben/release"
+        Aufgaben::Release.new
+      RUBY
+
+      stdout, stderr, status = sh! "rake", "release", error: false
+      assert_empty stdout
+      assert_equal "Specify a new version. Usage: rake release[version]\n", stderr
+      assert_equal 1, status.exitstatus
+    end
+  end
+
   private
 
   def init_git_repo!(remote_path, default_branch)
