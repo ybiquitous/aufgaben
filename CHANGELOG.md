@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.7.0...HEAD)
 
+- Auto-release via GitHub Actions (no actual changes) [#37](https://github.com/ybiquitous/aufgaben/pull/37)
+
 ## 0.7.0
 
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.6.2...0.7.0)
