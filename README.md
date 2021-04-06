@@ -7,7 +7,7 @@ The collection of useful Rake tasks.
 Add this line to your `Gemfile`:
 
 ```ruby
-gem "aufgaben", git: "https://github.com/ybiquitous/aufgaben.git", tag: "0.6.0", require: false
+gem "aufgaben", git: "https://github.com/ybiquitous/aufgaben.git", tag: "<<tag_you_want>>", require: false
 
 ```
 
