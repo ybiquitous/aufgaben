@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.6.2...HEAD)
 
 - Support Ruby 3.0.1, 2.7.3, and 2.6.7 for `bump:ruby` [#34](https://github.com/ybiquitous/aufgaben/pull/34)
+- **BREAKING** Rename default branch from `master` to `main` [#36](https://github.com/ybiquitous/aufgaben/pull/36)
 
 ## 0.6.2
 
