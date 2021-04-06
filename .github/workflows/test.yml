@@ -19,7 +19,6 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
-      - run: |
-          git config --global user.email "you@example.com"
-          git config --global user.name "Your Name"
-      - run: bundle exec rake test
+      - run: git config --global user.name '${{ github.actor }}'
+      - run: git config --global user.email '${{ github.actor }}@users.noreply.github.com'
+      - run: bundle exec rake
