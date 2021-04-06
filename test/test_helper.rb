@@ -25,7 +25,7 @@ module TestHelper
     [stdout, stderr, status]
   end
 
-  def in_tmpdir(git: true, default_branch: "master")
+  def in_tmpdir(git: true, default_branch: "main")
     basedir = Pathname(__dir__) / ".."
 
     Dir.mktmpdir do |git_remote_dir|

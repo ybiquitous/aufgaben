@@ -9,7 +9,7 @@ module Aufgaben
 
     def initialize(name = :release, depends: [])
       super(name, depends: depends)
-      @default_branch = "master"
+      @default_branch = "main"
       @changelog = "CHANGELOG.md"
       @files = []
       @new_version = nil

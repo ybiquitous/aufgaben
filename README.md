@@ -26,7 +26,7 @@ The default settings:
 
 ```ruby
 Aufgaben::Release.new do |t|
-  t.default_branch = "master"
+  t.default_branch = "main"
   t.dry_run = false
   t.changelog = "CHANGELOG.md"
   t.files = []
