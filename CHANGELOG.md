@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/ybiquitous/aufgaben/compare/0.7.0...HEAD)
+[Full diff](https://github.com/ybiquitous/aufgaben/compare/0.7.1...HEAD)
+
+## 0.7.1
+
+[Full diff](https://github.com/ybiquitous/aufgaben/compare/0.7.0...0.7.1)
 
 - Auto-release via GitHub Actions (no actual changes) [#37](https://github.com/ybiquitous/aufgaben/pull/37)
 
