@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/ybiquitous/aufgaben/compare/0.7.1...HEAD)
+[Full diff](https://github.com/ybiquitous/aufgaben/compare/0.8.0...HEAD)
+
+## 0.8.0
+
+[Full diff](https://github.com/ybiquitous/aufgaben/compare/0.7.1...0.8.0)
 
 - Support Ruby 3.0.2, 2.7.4, and 2.6.8 for `bump:ruby` [#38](https://github.com/ybiquitous/aufgaben/pull/38)
 - Colored message for release [#39](https://github.com/ybiquitous/aufgaben/pull/39) [#40](https://github.com/ybiquitous/aufgaben/pull/40)
