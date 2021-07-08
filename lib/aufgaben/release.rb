@@ -1,4 +1,5 @@
 require_relative "base"
+require_relative "color"
 
 module Aufgaben
   class Release < Base
@@ -50,10 +51,11 @@ module Aufgaben
           abort "Uncommitted changes found!" unless ok
         end
 
+        colored_new_version = Color.new(new_version).green
         if initial
-          msg "Releasing a new version: #{new_version}"
+          msg "Releasing a new version: #{colored_new_version}"
         else
-          msg "Releasing a new version: #{current_version} -> #{new_version}"
+          msg "Releasing a new version: #{current_version} -> #{colored_new_version}"
         end
 
         sh "git", "--no-pager", "log", "--format=%C(auto)%h %Creset%s", "#{current_version}..HEAD"
