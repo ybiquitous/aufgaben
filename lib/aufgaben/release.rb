@@ -51,7 +51,6 @@ module Aufgaben
           abort "Uncommitted changes found!" unless ok
         end
 
-        colored_new_version = Color.new(new_version).green
         if initial
           msg "Releasing a new version: #{colored_new_version}"
         else
@@ -173,7 +172,7 @@ module Aufgaben
     def answer_yes?
       puts
       loop do
-        print "> Perform the release of version #{new_version}? [y/N] "
+        print "> Perform the release of version #{colored_new_version}? [y/N] "
         answer = STDIN.gets.chomp.downcase
         if answer == "y"
           return true
@@ -184,6 +183,10 @@ module Aufgaben
           next
         end
       end
+    end
+
+    def colored_new_version
+      Color.new(new_version).green
     end
   end
 end
