@@ -1,3 +1,3 @@
-0.8.1module0.8.1 0.8.1Aufgaben0.8.1
-  0.8.1VERSION0.8.1 = "0.8.100.8.1.0.8.180.8.1.0.8.100.8.1".0.8.1freeze0.8.1
-0.8.1end0.8.1
+module Aufgaben
+  VERSION = "0.8.1".freeze
+end

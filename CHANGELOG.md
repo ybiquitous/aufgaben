@@ -10,7 +10,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.8.0...0.8.1)
 
-- This version is now available on RubyGems.org! [#41](https://github.com/ybiquitous/aufgaben/pull/41)
+- ~~This version is now available on RubyGems.org!~~ [#41](https://github.com/ybiquitous/aufgaben/pull/41)
+  → Failed.
 
 ## 0.8.0
 
