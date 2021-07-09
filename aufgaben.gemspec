@@ -7,8 +7,8 @@ Gem::Specification.new do |spec|
   spec.email         = ["ybiquitous@gmail.com"]
   spec.license       = "MIT"
 
-  spec.summary       = "Rake tasks"
-  spec.description   = "Provide useful Rake tasks"
+  spec.summary       = "The collection of useful Rake tasks."
+  spec.description   = "Aufgaben provides a collection of practical Rake tasks for automation."
   spec.homepage      = "https://github.com/ybiquitous/aufgaben"
 
   spec.required_ruby_version = Gem::Requirement.new(">= 2.6.0")
