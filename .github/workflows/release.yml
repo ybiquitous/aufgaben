@@ -21,13 +21,13 @@ jobs:
           bundler-cache: true
       - run: git config --global user.name '${{ github.actor }}'
       - run: git config --global user.email '${{ github.actor }}@users.noreply.github.com'
+      - run: bundle exec rake 'release[${{ github.event.inputs.version }}]' NONINTERACTIVE=1
       - run: git push --follow-tags
       - run: echo ::set-output name=tag::$(git describe --abbrev=0)
         id: tag
       - run: gh release create '${{ steps.tag.outputs.tag }}' --notes 'See the [changelog](https://github.com/${{ github.repository }}/blob/${{ steps.tag.outputs.tag }}/CHANGELOG.md) for details.'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: bundle exec rake 'release[${{ github.event.inputs.version }}]' NONINTERACTIVE=1
       - run: bundle exec gem build
       - run: bundle exec gem push *.gem --otp '${{ github.event.inputs.otp }}'
         env:
