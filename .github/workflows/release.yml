@@ -21,7 +21,7 @@ jobs:
           bundler-cache: true
       - run: git config --global user.name '${{ github.actor }}'
       - run: git config --global user.email '${{ github.actor }}@users.noreply.github.com'
-      - run: bundle exec rake 'release[${{ github.event.inputs.version }}]' NONINTERACTIVE=1
+      - run: bundle exec rake 'release_new[${{ github.event.inputs.version }}]' NONINTERACTIVE=1
       - run: git push --follow-tags
       - run: echo ::set-output name=tag::$(git describe --abbrev=0)
         id: tag
