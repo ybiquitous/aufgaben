@@ -9,6 +9,7 @@ on:
       otp:
         description: "One time password for MFA"
         required: true
+
 jobs:
   release:
     runs-on: ubuntu-latest
