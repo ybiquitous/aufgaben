@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.description   = "Aufgaben provides a collection of practical Rake tasks for automation."
   spec.homepage      = "https://github.com/ybiquitous/aufgaben"
 
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.6.0")
+  spec.required_ruby_version = ">= 2.6.0"
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = spec.homepage
