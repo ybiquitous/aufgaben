@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: echo ::set-output name=tag::${GITHUB_REF/refs\/tags\//}
-        id: get_tag
-      - run: gh release create '${{ steps.get_tag.outputs.tag }}' --notes 'See the [changelog](https://github.com/${{ github.repository }}/blob/${{ steps.get_tag.outputs.tag }}/CHANGELOG.md) for more details.'
+        id: tag
+      - run: gh release create '${{ steps.tag.outputs.tag }}' --notes 'See the [changelog](https://github.com/${{ github.repository }}/blob/${{ steps.tag.outputs.tag }}/CHANGELOG.md) for details.'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
