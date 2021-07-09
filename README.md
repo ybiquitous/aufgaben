@@ -1,3 +1,5 @@
+[![Gem Version](https://badge.fury.io/rb/aufgaben.svg)](https://badge.fury.io/rb/aufgaben)
+
 # Aufgaben
 
 The collection of useful Rake tasks.
@@ -7,8 +9,7 @@ The collection of useful Rake tasks.
 Add this line to your `Gemfile`:
 
 ```ruby
-gem "aufgaben", git: "https://github.com/ybiquitous/aufgaben.git", tag: "<<tag_you_want>>", require: false
-
+gem "aufgaben", require: false
 ```
 
 ## Usage
