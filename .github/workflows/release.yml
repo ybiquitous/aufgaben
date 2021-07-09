@@ -1,16 +1,32 @@
 name: Release
 
 on:
-  push:
-    tags: ["**"]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "New gem version, e.g. `1.2.3`"
+        required: true
+      otp:
+        description: "One time password for MFA"
+        required: true
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: echo ::set-output name=tag::${GITHUB_REF/refs\/tags\//}
-        id: tag
-      - run: gh release create '${{ steps.tag.outputs.tag }}' --notes 'See the [changelog](https://github.com/${{ github.repository }}/blob/${{ steps.tag.outputs.tag }}/CHANGELOG.md) for details.'
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.0"
+          bundler-cache: true
+      - run: git config --global user.name '${{ github.actor }}'
+      - run: git config --global user.email '${{ github.actor }}@users.noreply.github.com'
+      - run: bundle exec rake 'release_new[${{ github.event.inputs.version }}]' NONINTERACTIVE=1
+      - run: git push --follow-tags
+      - run: gh release create '${{ github.event.inputs.version }}' --notes 'See the [changelog](https://github.com/${{ github.repository }}/blob/${{ github.event.inputs.version }}/CHANGELOG.md) for details.'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: bundle exec gem build
+      - run: bundle exec gem push --otp='${{ github.event.inputs.otp }}' 'aufgaben-${{ github.event.inputs.version }}.gem'
+        env:
+          GEM_HOST_API_KEY: ${{ secrets.GEM_HOST_API_KEY }}
