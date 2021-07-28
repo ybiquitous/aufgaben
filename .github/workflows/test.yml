@@ -22,4 +22,3 @@ jobs:
       - run: git config --global user.name '${{ github.actor }}'
       - run: git config --global user.email '${{ github.actor }}@users.noreply.github.com'
       - run: bundle exec rake
-      - run: gem -v
