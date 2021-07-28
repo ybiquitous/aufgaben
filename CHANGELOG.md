@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.8.2...HEAD)
 
-- Run `git show` on `release task` [#45](https://github.com/ybiquitous/aufgaben/pull/45)
+- Run `git show` on `release` task [#45](https://github.com/ybiquitous/aufgaben/pull/45)
 
 ## 0.8.2
 
