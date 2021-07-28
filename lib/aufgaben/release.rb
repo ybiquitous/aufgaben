@@ -80,7 +80,10 @@ module Aufgaben
 
           sh "git", "commit", "--quiet", "--message", "Version #{new_version}"
           sh "git", "tag", "--annotate", "--message", "Version #{new_version}", new_version
-          msg "The tag '#{new_version}' is added. Run 'git push --follow-tags'."
+          sh "git", "show", "--pretty"
+
+          git_push = Color.new("git push --follow-tags").green
+          msg "The tag '#{colored_new_version}' is added. Run '#{git_push}'."
         end
       end
     end
