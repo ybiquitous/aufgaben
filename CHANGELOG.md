@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/ybiquitous/aufgaben/compare/0.8.2...HEAD)
+[Full diff](https://github.com/ybiquitous/aufgaben/compare/0.8.3...HEAD)
+
+## 0.8.3
+
+[Full diff](https://github.com/ybiquitous/aufgaben/compare/0.8.2...0.8.3)
 
 - Run `git show` on `release` task [#45](https://github.com/ybiquitous/aufgaben/pull/45)
 
