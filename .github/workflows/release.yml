@@ -29,6 +29,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: bundle exec gem build
-      - run: bundle exec gem push --otp='${{ github.event.inputs.otp }}' 'aufgaben-${{ github.event.inputs.version }}.gem'
+      - run: bundle exec gem push 'aufgaben-${{ github.event.inputs.version }}.gem'
         env:
           GEM_HOST_API_KEY: ${{ secrets.GEM_HOST_API_KEY }}
+          GEM_HOST_OTP_CODE: ${{ github.event.inputs.otp }}
