@@ -162,6 +162,33 @@ class ReleaseTest < Minitest::Test
     end
   end
 
+  def test_no_current_version_in_version_file
+    in_tmpdir do |basedir, workdir, git_remote_path, default_branch|
+      (workdir / "Rakefile").write <<~RUBY
+        require "aufgaben/release"
+        Aufgaben::Release.new do |t|
+          t.files = ["version.rb"]
+        end
+      RUBY
+
+      (workdir / "version.rb").write <<~RUBY
+        version = "0.0.9"
+      RUBY
+
+      init_git_repo! git_remote_path, default_branch
+
+      sh! "git", "add", "."
+      sh! "git", "commit", "-m", "Init"
+      sh! "git", "tag", "-a", "1.0.0", "-m", "Version 1.0.0"
+      sh! "git", "push", "--follow-tags"
+
+      _stdout, stderr, status = sh! "rake", "release[1.1.0]", error: false
+
+      assert_match %r{^The current version '1\.0\.0' is not found in 'version\.rb'!$}, stderr
+      assert_equal 1, status.exitstatus
+    end
+  end
+
   def test_depends
     in_tmpdir git: false do |basedir, workdir|
       prepare_gemfile basedir, workdir
