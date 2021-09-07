@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.8.3...HEAD)
 
+- Check if specified files are updated on `release` task [#46](https://github.com/ybiquitous/aufgaben/pull/46)
+
 ## 0.8.3
 
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.8.2...0.8.3)
