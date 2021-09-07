@@ -7,7 +7,7 @@ on:
         description: "New gem version, e.g. `1.2.3`"
         required: true
       otp:
-        description: "One time password for MFA"
+        description: "One-time password for RubyGems.org"
         required: true
 
 jobs:
