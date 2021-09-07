@@ -86,6 +86,8 @@ module Aufgaben
           git "tag", "--annotate", "--message", "Version #{new_version}", new_version
           git "show", "--pretty"
 
+          check_committed_files
+
           git_push = Color.new("git push --follow-tags").green
           msg "The tag '#{colored_new_version}' is added. Run '#{git_push}'."
         end
@@ -158,8 +160,25 @@ module Aufgaben
       msg "'#{changelog}' is added."
     end
 
+    def check_committed_files
+      expected = [*expanded_files, changelog].sort
+      actual = `git diff --name-only HEAD^...HEAD`.lines(chomp: true).sort
+
+      if expected != actual
+        abort <<~MSG
+          The committed files are not what was expected.
+          Expected: #{expected}
+          Actual:   #{actual}
+        MSG
+      end
+    end
+
+    def expanded_files
+      @expanded_files ||= Dir.glob(files, File::FNM_EXTGLOB)
+    end
+
     def each_file(&block)
-      Dir.glob(files, File::FNM_EXTGLOB).each(&block)
+      expanded_files.each(&block)
     end
 
     def update_version_in(file, write: true)
