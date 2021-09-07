@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/ybiquitous/aufgaben/compare/0.8.3...HEAD)
+[Full diff](https://github.com/ybiquitous/aufgaben/compare/0.8.4...HEAD)
+
+## 0.8.4
+
+[Full diff](https://github.com/ybiquitous/aufgaben/compare/0.8.3...0.8.4)
 
 - Check if specified files are updated on `release` task [#46](https://github.com/ybiquitous/aufgaben/pull/46)
 
