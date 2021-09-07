@@ -1,0 +1,9 @@
+module Aufgaben
+  class Color
+    def self.enabled?: () -> untyped
+
+    def initialize: (untyped text) -> void
+
+    def green: () -> untyped
+  end
+end

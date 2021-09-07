@@ -1,0 +1,17 @@
+module Aufgaben
+  class Bump::Ruby < Bump::Base
+    DEFAULT_FILES: untyped
+
+    DEFAULT_RELEASE_NOTE_URL: untyped
+
+    RELEASE_NOTE_URLS: untyped
+
+    def initialize: (?::Symbol name, ?untyped ns, ?depends: untyped depends) -> void
+
+    private
+
+    def release_label: () -> "release note"
+
+    def release_url: () -> untyped
+  end
+end

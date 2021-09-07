@@ -1,0 +1,23 @@
+module Aufgaben
+  class Bump::Nodejs < Bump::Base
+    DEFAULT_FILES: untyped
+
+    DEFAULT_VERSION_FILES: untyped
+
+    attr_accessor version_files: untyped
+
+    def initialize: (?::Symbol name, ?untyped ns, ?depends: untyped depends) -> void
+
+    private
+
+    def current_version: () -> untyped
+
+    def init_current_version: () -> untyped
+
+    def target_files: () -> untyped
+
+    def release_label: () -> "changelog"
+
+    def release_url: () -> ::String
+  end
+end

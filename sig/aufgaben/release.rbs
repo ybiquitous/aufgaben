@@ -1,0 +1,35 @@
+module Aufgaben
+  class Release < Base
+    attr_accessor default_branch: untyped
+
+    attr_accessor changelog: untyped
+
+    attr_accessor files: untyped
+
+    attr_accessor new_version: untyped
+
+    def initialize: (?::Symbol name, ?depends: untyped depends) { (untyped) -> untyped } -> void
+
+    private
+
+    def define: () -> untyped
+
+    def current_version: () -> untyped
+
+    def update_changelog: (from: untyped from, to: untyped to) -> untyped
+
+    def add_changelog: (with: untyped with) -> untyped
+
+    def each_file: () { (String file) -> untyped } -> untyped
+
+    def update_version_in: (untyped file, ?write: bool write) -> untyped
+
+    def msg: (untyped text) -> untyped
+
+    def interactive?: () -> untyped
+
+    def answer_yes?: () -> (::TrueClass | ::FalseClass | untyped)
+
+    def colored_new_version: () -> untyped
+  end
+end

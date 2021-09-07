@@ -1,0 +1,4 @@
+module Aufgaben
+  class Error < StandardError
+  end
+end

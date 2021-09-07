@@ -1,0 +1,6 @@
+# Polyfills for rake gem
+
+module Rake
+  class TaskLib
+  end
+end

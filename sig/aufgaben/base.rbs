@@ -1,0 +1,15 @@
+module Aufgaben
+  class Base < ::Rake::TaskLib
+    attr_reader name: untyped
+
+    attr_reader depends: untyped
+
+    attr_accessor dry_run: untyped
+
+    def initialize: (untyped name, depends: untyped depends) -> void
+
+    def dry_run?: () -> untyped
+
+    def git: (*untyped cmd) { () -> untyped } -> untyped
+  end
+end

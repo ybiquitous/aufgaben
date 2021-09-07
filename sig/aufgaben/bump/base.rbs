@@ -1,0 +1,31 @@
+module Aufgaben
+  module Bump
+    class Base < Aufgaben::Base
+      DEFAULT_COMMIT_MESSAGE_TEMPLATE: untyped
+
+      attr_reader ns: untyped
+
+      attr_accessor files: untyped
+
+      attr_accessor current_version: untyped
+
+      attr_accessor commit_message_template: untyped
+
+      def initialize: (untyped name, untyped ns, untyped target_name, depends: untyped depends) { (untyped) -> untyped } -> void
+
+      def default_namespace: () -> :bump
+
+      private
+
+      attr_reader target_name: untyped
+
+      attr_accessor next_version: untyped
+
+      def target_files: () -> untyped
+
+      def define: () -> untyped
+
+      def commit_message: () -> untyped
+    end
+  end
+end

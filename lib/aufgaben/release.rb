@@ -97,6 +97,7 @@ module Aufgaben
     end
 
     def update_changelog(from:, to:)
+      # @type var compare_url: String?
       compare_url = nil
       new_lines = File.readlines(changelog, chomp: true).map do |line|
         case
@@ -127,6 +128,7 @@ module Aufgaben
       # for test only
       git_remote_command = ENV["AUFGABEN_GIT_REMOTE_COMMAND"] || "git remote --verbose"
 
+      # @type var repo: String?
       repo = nil
       `#{git_remote_command}`.lines(chomp: true).each do |line|
         line.match(%r{git@github\.com:([^/]+/[^/]+)\.git}) do |m|
@@ -141,7 +143,7 @@ module Aufgaben
 
       abort "No remote repositories on GitHub!" unless repo
 
-      File.write(changelog, <<~CONTENT, encoding: Encoding::UTF_8)
+      File.write(changelog, <<~CONTENT, encoding: "UTF-8")
         # Changelog
 
         All notable changes to this project will be documented in this file.
@@ -158,8 +160,8 @@ module Aufgaben
       msg "'#{changelog}' is added."
     end
 
-    def each_file(&block)
-      Dir.glob(files, File::FNM_EXTGLOB).each(&block)
+    def each_file
+      Dir.glob(files, File::FNM_EXTGLOB).each { |file| yield file }
     end
 
     def update_version_in(file, write: true)
@@ -195,7 +197,7 @@ module Aufgaben
       puts
       loop do
         print "> Perform the release of version #{colored_new_version}? [y/N] "
-        answer = STDIN.gets.chomp.downcase
+        answer = STDIN.gets.to_s.chomp.downcase
         if answer == "y"
           return true
         elsif answer == "n" || answer == ""
