@@ -59,6 +59,10 @@ module Aufgaben
 
         sh "git", "--no-pager", "log", "--format=%C(auto)%h %Creset%s", "#{current_version}..HEAD"
 
+        each_file do |file|
+          update_version_in file, write: false
+        end
+
         if dry_run?
           msg "This is a dry-run mode. No actual changes. Next, run this without `DRY_RUN=1`."
         else
@@ -73,7 +77,7 @@ module Aufgaben
           end
           sh "git", "add", changelog
 
-          Dir.glob(files, File::FNM_EXTGLOB).each do |file|
+          each_file do |file|
             update_version_in file
             sh "git", "add", file
           end
@@ -154,12 +158,27 @@ module Aufgaben
       msg "'#{changelog}' is added."
     end
 
-    def update_version_in(file)
-      content = File.read(file)
-      content = content.gsub(Regexp.new('\b' + Regexp.escape(current_version) + '\b'), new_version)
-      File.write(file, content)
+    def each_file(&block)
+      Dir.glob(files, File::FNM_EXTGLOB).each(&block)
+    end
 
-      msg "'#{file}' is updated."
+    def update_version_in(file, write: true)
+      content = File.read(file)
+
+      current_version_pattern = Regexp.new('\b' + Regexp.escape(current_version) + '\b')
+      unless current_version_pattern.match?(content)
+        abort "The current version '#{current_version}' is not found in '#{file}'!"
+      end
+
+      new_content = content.gsub(current_version_pattern, new_version)
+      if content == new_content
+        abort "No changes in '#{file}'"
+      end
+
+      if write
+        File.write(file, new_content)
+        msg "'#{file}' is updated."
+      end
     end
 
     def msg(text)
