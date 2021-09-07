@@ -17,5 +17,9 @@ module Aufgaben
     def dry_run?
       ENV["DRY_RUN"] || dry_run
     end
+
+    def git(*cmd, &block)
+      sh("git", *cmd, &block)
+    end
   end
 end
