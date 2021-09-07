@@ -83,8 +83,8 @@ MSG
           elsif !dry_run?
             puts "Committing changed files ..."
             puts ""
-            sh "git", "add", *changed_files
-            sh "git", "commit", "-m", commit_message
+            git "add", *changed_files
+            git "commit", "-m", commit_message
           end
         end
       end

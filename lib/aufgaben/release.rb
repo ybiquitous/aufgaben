@@ -34,8 +34,8 @@ module Aufgaben
 
         msg "If you want to do this on dry-run mode, set 'DRY_RUN=1'." unless dry_run?
 
-        sh "git", "checkout", default_branch, "--quiet"
-        sh "git", "pull", "origin", default_branch, "--quiet"
+        git "checkout", default_branch, "--quiet"
+        git "pull", "origin", default_branch, "--quiet"
         sh "bundle", "install", "--quiet"
 
         if current_version.empty?
@@ -47,7 +47,7 @@ module Aufgaben
           end
         end
 
-        sh "git", "diff", "--exit-code", "--quiet" do |ok|
+        git "diff", "--exit-code", "--quiet" do |ok|
           abort "Uncommitted changes found!" unless ok
         end
 
@@ -57,7 +57,7 @@ module Aufgaben
           msg "Releasing a new version: #{current_version} -> #{colored_new_version}"
         end
 
-        sh "git", "--no-pager", "log", "--format=%C(auto)%h %Creset%s", "#{current_version}..HEAD"
+        git "--no-pager", "log", "--format=%C(auto)%h %Creset%s", "#{current_version}..HEAD"
 
         each_file do |file|
           update_version_in file, write: false
@@ -75,16 +75,16 @@ module Aufgaben
           else
             add_changelog with: new_version
           end
-          sh "git", "add", changelog
+          git "add", changelog
 
           each_file do |file|
             update_version_in file
-            sh "git", "add", file
+            git "add", file
           end
 
-          sh "git", "commit", "--quiet", "--message", "Version #{new_version}"
-          sh "git", "tag", "--annotate", "--message", "Version #{new_version}", new_version
-          sh "git", "show", "--pretty"
+          git "commit", "--quiet", "--message", "Version #{new_version}"
+          git "tag", "--annotate", "--message", "Version #{new_version}", new_version
+          git "show", "--pretty"
 
           git_push = Color.new("git push --follow-tags").green
           msg "The tag '#{colored_new_version}' is added. Run '#{git_push}'."
