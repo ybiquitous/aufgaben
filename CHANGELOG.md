@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.8.5...HEAD)
 
+- Support Ruby 3.0.3/2.7.5/2.6.9 for `bump:ruby` [#50](https://github.com/ybiquitous/aufgaben/pull/50)
+
 ## 0.8.5
 
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.8.4...0.8.5)
