@@ -9,16 +9,22 @@ module Aufgaben
 
     DEFAULT_RELEASE_NOTE_URL = "https://www.ruby-lang.org/en/news".freeze
     RELEASE_NOTE_URLS = {
+      "3.1.2": "https://www.ruby-lang.org/en/news/2022/04/12/ruby-3-1-2-released/",
+      "3.1.1": "https://www.ruby-lang.org/en/news/2022/02/18/ruby-3-1-1-released/",
+      "3.1.0": "https://www.ruby-lang.org/en/news/2021/12/25/ruby-3-1-0-released/",
+      "3.0.4": "https://www.ruby-lang.org/en/news/2022/04/12/ruby-3-0-4-released/",
       "3.0.3": "https://www.ruby-lang.org/en/news/2021/11/24/ruby-3-0-3-released/",
       "3.0.2": "https://www.ruby-lang.org/en/news/2021/07/07/ruby-3-0-2-released/",
       "3.0.1": "https://www.ruby-lang.org/en/news/2021/04/05/ruby-3-0-1-released/",
       "3.0.0": "https://www.ruby-lang.org/en/news/2020/12/25/ruby-3-0-0-released/",
+      "2.7.6": "https://www.ruby-lang.org/en/news/2022/04/12/ruby-2-7-6-released/",
       "2.7.5": "https://www.ruby-lang.org/en/news/2021/11/24/ruby-2-7-5-released/",
       "2.7.4": "https://www.ruby-lang.org/en/news/2021/07/07/ruby-2-7-4-released/",
       "2.7.3": "https://www.ruby-lang.org/en/news/2021/04/05/ruby-2-7-3-released/",
       "2.7.2": "https://www.ruby-lang.org/en/news/2020/10/02/ruby-2-7-2-released/",
       "2.7.1": "https://www.ruby-lang.org/en/news/2020/03/31/ruby-2-7-1-released/",
       "2.7.0": "https://www.ruby-lang.org/en/news/2019/12/25/ruby-2-7-0-released/",
+      "2.6.10": "https://www.ruby-lang.org/en/news/2022/04/12/ruby-2-6-10-released/",
       "2.6.9": "https://www.ruby-lang.org/en/news/2021/11/24/ruby-2-6-9-released/",
       "2.6.8": "https://www.ruby-lang.org/en/news/2021/07/07/ruby-2-6-8-released/",
       "2.6.7": "https://www.ruby-lang.org/en/news/2021/04/05/ruby-2-6-7-released/",
