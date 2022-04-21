@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/ybiquitous/aufgaben/compare/0.9.0...HEAD)
+[Full diff](https://github.com/ybiquitous/aufgaben/compare/0.10.0...HEAD)
+
+## 0.10.0
+
+[Full diff](https://github.com/ybiquitous/aufgaben/compare/0.9.0...0.10.0)
 
 - Add new Ruby versions for `bump:ruby` [#52](https://github.com/ybiquitous/aufgaben/pull/52)
 - Manage Ruby release URLs in JSON file [#53](https://github.com/ybiquitous/aufgaben/pull/53)
