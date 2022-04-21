@@ -43,6 +43,12 @@ module TestHelper
           yield basedir, workdir
         end
       end
+    rescue Errno::EACCES => e
+      if e.message.include? "Permission denied"
+        puts e.inspect # Ignore for Windows
+      else
+        raise
+      end
     end
   end
 end
