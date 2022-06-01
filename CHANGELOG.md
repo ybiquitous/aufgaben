@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.10.0...HEAD)
 
+- Drop Ruby 2.6 support [#58](https://github.com/ybiquitous/aufgaben/pull/58)
+
 ## 0.10.0
 
 [Full diff](https://github.com/ybiquitous/aufgaben/compare/0.9.0...0.10.0)
