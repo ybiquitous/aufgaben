@@ -13,6 +13,7 @@ jobs:
       versions: ${{ steps.versions.outputs.value }}
     steps:
       - id: versions
+        name: Fetch Ruby versions
         run: |
           versions="$(curl -s 'https://cache.ruby-lang.org/pub/misc/ci_versions.json' | jq -c)"
           echo "Fetched Ruby versions: ${versions}"
