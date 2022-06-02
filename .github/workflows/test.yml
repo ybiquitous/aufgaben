@@ -10,14 +10,12 @@ jobs:
   ruby-versions:
     runs-on: ubuntu-latest
     outputs:
-      versions: ${{ steps.versions.outputs.value }}
+      versions: ${{ steps.versions.outputs.versions }}
     steps:
       - id: versions
-        name: Fetch Ruby versions
-        run: |
-          versions="$(curl -s 'https://cache.ruby-lang.org/pub/misc/ci_versions/cruby.json' | jq -c)"
-          echo "Fetched Ruby versions: ${versions}"
-          echo "::set-output name=value::${versions}"
+        uses: ybiquitous/dynamic-ruby-versions-action@v1
+        with:
+          type: all
 
   test:
     name: Test on Ruby ${{ matrix.ruby }} and ${{ matrix.os }}
