@@ -15,7 +15,7 @@ jobs:
       - id: versions
         uses: ybiquitous/dynamic-ruby-versions-action@v1
         with:
-          type: all
+          type: jruby
 
   test:
     name: Test on Ruby ${{ matrix.ruby }} and ${{ matrix.os }}
